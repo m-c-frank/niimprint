@@ -2,38 +2,10 @@ import niimbotpacket
 import socket
 import struct
 import time
-import enum
-
-class InfoEnum(enum.IntEnum):
-    DENSITY = 1
-    PRINTSPEED = 2
-    LABELTYPE = 3
-    LANGUAGETYPE = 6
-    AUTOSHUTDOWNTIME = 7
-    DEVICETYPE = 8
-    SOFTVERSION = 9
-    BATTERY = 10
-    DEVICESERIAL = 11
-    HARDVERSION = 12
-
-class RequestCodeEnum(enum.IntEnum):
-    GET_INFO = 64
-    GET_RFID = 26
-    HEARTBEAT = 220
-    SET_LABEL_TYPE = 35
-    SET_LABEL_DENSITY = 33
-    START_PRINT = 1
-    END_PRINT = 243
-    START_PAGE_PRINT = 3
-    END_PAGE_PRINT = 227
-    ALLOW_PRINT_CLEAR = 32
-    SET_DIMENSION = 19
-    SET_QUANTITY = 21
-    GET_PRINT_STATUS = 163
+from niimcodes import RequestCodeEnum, InfoEnum
 
 _packet_to_int = lambda x: int.from_bytes(x.data, 'big')
 
-# TODO REMOVE MAGIC NUMBER
 class PrinterClient:
     def __init__(self, address):
         self._sock = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
